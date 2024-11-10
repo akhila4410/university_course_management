@@ -10,9 +10,22 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
 import os
 from datetime import datetime, timedelta
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
+
+
+origins = [
+    "https://unifrontend-c9c8c6c5f499.herokuapp.com",  # Add your frontend app URL here
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allows CORS for the specified origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers
+)
 # MongoDB client setup
 client = AsyncIOMotorClient(
     "mongodb+srv://akki712:akki@awsinstances.2sixhn0.mongodb.net/?retryWrites=true&w=majority&appName=awsinstances")
